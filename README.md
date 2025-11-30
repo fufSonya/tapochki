@@ -9,3 +9,5 @@
 
 ## Запуск CLI
 python cfgtotoml.py --out output.toml
+
+## ВАРИАНТ 8
