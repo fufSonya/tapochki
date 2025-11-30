@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-Token = Tuple[str, str]  # тип, значение
+Token = Tuple[str, str]
 
 class Lexer:
     def __init__(self, text: str):
@@ -19,6 +19,33 @@ class Lexer:
                 tokens.append(('NUMBER', self.number()))
             elif self.current_char in " \t\n":
                 self.advance()
+            elif self.current_char == '#':
+                tokens.append(('ARRAY_START', '#'))
+                self.advance()
+            elif self.current_char == '(':
+                tokens.append(('LPAREN', '('))
+                self.advance()
+            elif self.current_char == ')':
+                tokens.append(('RPAREN', ')'))
+                self.advance()
+            elif self.current_char == '{':
+                tokens.append(('LBRACE', '{'))
+                self.advance()
+            elif self.current_char == '}':
+                tokens.append(('RBRACE', '}'))
+                self.advance()
+            elif self.current_char == '=':
+                self.advance()
+                if self.current_char == '>':
+                    tokens.append(('ARROW', '=>'))
+                    self.advance()
+                else:
+                    tokens.append(('EQUAL', '='))
+            elif self.current_char == '-':
+                self.advance()
+                if self.current_char == '>':
+                    tokens.append(('CONST_ARROW', '->'))
+                    self.advance()
             else:
                 tokens.append(('CHAR', self.current_char))
                 self.advance()
